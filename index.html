@@ -5,23 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UCSD Free Parking Map</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       height: 100vh;
-      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ── Banner ── */
+    #banner {
       background-color: #003f7d;
       color: white;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
     }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    p  { font-size: 1.2rem; opacity: 0.85; }
+
+    #banner h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    #banner p {
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+
+    /* ── Map fills the rest ── */
+    #map {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
-  <h1>🗺️ UCSD Free Parking Map</h1>
-  <p>Coming soon — site is live!</p>
+
+  <div id="banner">
+    <h1>🗺️ UCSD Free Parking Map</h1>
+    <p>Find free parking near campus</p>
+  </div>
+
+  <div id="map"></div>
+
+  <script>
+    function initMap() {
+      const ucsd = { lat: 32.8801, lng: -117.2340 };
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: ucsd,
+        zoom: 15,
+
+        // Clean up the UI
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: false,
+      });
+    }
+  </script>
+
+  <!-- Replace YOUR_API_KEY with your actual key -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4&callback=initMap"
+    async defer>
+  </script>
+
 </body>
 </html>
