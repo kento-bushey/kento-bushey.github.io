@@ -1,0 +1,3 @@
+Google maps API Key: AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4&
+
+Go to https://geojson.io to make more polygons on the map.

@@ -18,7 +18,6 @@
       font-family: Arial, sans-serif;
     }
 
-    /* ── Banner ── */
     #banner {
       background-color: #003f7d;
       color: white;
@@ -30,19 +29,9 @@
       flex-shrink: 0;
     }
 
-    #banner h1 {
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    #banner p {
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-
-    #banner .spacer {
-      flex: 1;
-    }
+    #banner h1 { font-size: 1.3rem; font-weight: bold; }
+    #banner p  { font-size: 0.9rem; opacity: 0.75; }
+    #banner .spacer { flex: 1; }
 
     #banner .discussion-btn {
       text-decoration: none;
@@ -59,9 +48,80 @@
       background-color: rgba(255,255,255,0.15);
     }
 
-    /* ── Map fills the rest ── */
     #map {
       flex: 1;
+      position: relative;
+    }
+
+    /* ── Legend ── */
+    #legend {
+      position: fixed;
+      bottom: 32px;
+      left: 12px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      padding: 8px 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: auto;
+    }
+
+    #legend h3 {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #333;
+      margin: 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+
+    .legend-label {
+      font-size: 0.8rem;
+      color: #333;
+    }
+
+    /* ── Hover tooltip ── */
+    #tooltip {
+      position: fixed;
+      background: white;
+      border-radius: 8px;
+      padding: 10px 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      pointer-events: none;
+      z-index: 11;
+      display: none;
+      max-width: 240px;
+    }
+
+    #tooltip strong {
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    #tooltip .cat {
+      color: #888;
+      font-size: 0.75rem;
+      margin-bottom: 6px;
+      display: block;
     }
   </style>
 </head>
@@ -76,19 +136,90 @@
 
   <div id="map"></div>
 
+  <div id="legend">
+    <h3>Legend</h3>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#2ecc71;"></div>
+      <span class="legend-label">General Overnight</span>
+    </div>
+    <!-- Add legend items here as you add categories -->
+  </div>
+
+  <div id="tooltip"></div>
+
   <script>
+    const categoryStyles = {
+      "General Overnight": { color: "#2ecc71", opacity: 0.6 },
+      // "Time Limit":       { color: "#f1c40f", opacity: 0.6 },
+      // "Weekends Only":    { color: "#3498db", opacity: 0.6 },
+    };
+
+    const defaultStyle = { color: "#aaaaaa", opacity: 0.5 };
+
+    const bwMapStyle = [
+      { elementType: "geometry", stylers: [{ saturation: -100 }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#555555" }] },
+      { featureType: "poi", stylers: [{ visibility: "off" }] },
+    ];
+
     function initMap() {
       const ucsd = { lat: 32.8801, lng: -117.2340 };
 
       const map = new google.maps.Map(document.getElementById("map"), {
         center: ucsd,
         zoom: 15,
-
-        // Clean up the UI
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,
+        styles: bwMapStyle,
       });
+
+      const tooltip = document.getElementById("tooltip");
+      const mapDiv  = document.getElementById("map");
+
+      mapDiv.addEventListener("mousemove", (e) => {
+        let x = e.clientX + 16;
+        let y = e.clientY + 16;
+        if (x + 260 > window.innerWidth)  x = e.clientX - 260;
+        if (y + 120 > window.innerHeight) y = e.clientY - 120;
+        tooltip.style.left = x + "px";
+        tooltip.style.top  = y + "px";
+      });
+
+      fetch("/projects/ucsdfreeparking/parking.geojson")
+        .then(res => res.json())
+        .then(data => {
+          data.features.forEach(feature => {
+            const props = feature.properties;
+            const style = categoryStyles[props.category] || defaultStyle;
+            const coords = feature.geometry.coordinates[0].map(([lng, lat]) => ({ lat, lng }));
+
+            const polygon = new google.maps.Polygon({
+              paths: coords,
+              strokeColor: style.color,
+              strokeOpacity: 0.9,
+              strokeWeight: 2,
+              fillColor: style.color,
+              fillOpacity: style.opacity,
+              map: map,
+            });
+
+            polygon.addListener("mouseover", () => {
+              polygon.setOptions({ fillOpacity: 0.85 });
+              tooltip.innerHTML = `
+                <strong>${props.name}</strong>
+                <span class="cat">${props.category}</span>
+                ${props.description}
+              `;
+              tooltip.style.display = "block";
+            });
+
+            polygon.addListener("mouseout", () => {
+              polygon.setOptions({ fillOpacity: style.opacity });
+              tooltip.style.display = "none";
+            });
+          });
+        });
     }
   </script>
 
