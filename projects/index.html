@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kento Bushey</title>
+  <title>Projects — Kento Bushey</title>
   <style>
     * {
       margin: 0;
@@ -21,6 +21,19 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+    }
+
+    .back {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      color: #888;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .back:hover {
+      color: white;
     }
 
     h1 {
@@ -52,34 +65,36 @@
       text-decoration: none;
       letter-spacing: 0.5px;
       transition: opacity 0.2s;
+      background-color: #1a1a1a;
+      color: white;
+      border: 1px solid #333;
     }
 
     .btn:hover {
       opacity: 0.8;
     }
 
-    .btn-projects {
-      background-color: #003f7d;
+    .btn-placeholder {
       color: white;
+      border: 1px dashed #333;
+      cursor: default;
     }
 
-    .btn-secondary {
-      background-color: #1a1a1a;
-      color: white;
-      border: 1px solid #333;
+    .btn-placeholder:hover {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <h1>Kento Bushey</h1>
-  <p class="tagline">Personal Website</p>
+  <a href="/" class="back">← Home</a>
+
+  <h1>Projects</h1>
+  <p class="tagline">Things I've built</p>
 
   <div class="buttons">
-    <a href="/projects" class="btn btn-projects">Projects</a>
-    <a href="/referrals" class="btn btn-secondary">Referrals</a>
-    <a href="/about" class="btn btn-secondary">About</a>
-    <a href="/contact" class="btn btn-secondary">Contact</a>
+    <a href="/projects/ucsdfreeparking" class="btn">UCSD Free Parking Map</a>
+    <a class="btn btn-placeholder">Graphics Projects — Coming Soon</a>
   </div>
 
 </body>
