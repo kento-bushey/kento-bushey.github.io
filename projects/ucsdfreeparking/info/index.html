@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info — UCSD Free Parking Map</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+    }
+
+    /* ── Banner ── */
+    #banner {
+      background-color: #003f7d;
+      color: white;
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    #banner h1 { font-size: 1.3rem; font-weight: bold; }
+    #banner .spacer { flex: 1; }
+
+    #banner .map-btn {
+      text-decoration: none;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    #banner .map-btn:hover {
+      background-color: rgba(255,255,255,0.15);
+    }
+
+    /* ── Content ── */
+    #content {
+      max-width: 720px;
+      width: 100%;
+      margin: 48px auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .last-updated {
+      font-size: 0.8rem;
+      color: #555;
+      margin-bottom: -24px;
+    }
+
+    .section h2 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: white;
+      border-bottom: 1px solid #333;
+      padding-bottom: 8px;
+    }
+
+    .rule {
+      margin-bottom: 20px;
+    }
+
+    .rule h3 {
+      font-size: 1rem;
+      color: #90caf9;
+      margin-bottom: 6px;
+    }
+
+    .rule p {
+      font-size: 0.9rem;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .caveat {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #888;
+      font-style: italic;
+    }
+
+    a {
+      color: #90caf9;
+    }
+
+    a:hover {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="banner">
+    <h1>ℹ️ Info</h1>
+    <div class="spacer"></div>
+    <a href="/projects/ucsdfreeparking" class="map-btn">🗺️ Back to Map</a>
+  </div>
+
+  <div id="content">
+
+    <p class="last-updated">Last updated: April 2026</p>
+
+    <div class="section">
+      <h2>San Diego City Streets Policy</h2>
+
+      <div class="rule">
+        <h3>Wheel Curbing Requirement</h3>
+        <p>When parking on a hill or sloped street, San Diego law requires you to turn your wheels toward the curb (when facing downhill) or away from the curb (when facing uphill). This applies to all vehicles. Failure to curb your wheels can result in a citation even if you are otherwise legally parked. The current fine for a parking citation in San Diego is <strong>$90</strong>.</p>
+      </div>
+
+      <div class="rule">
+        <h3>72-Hour Parking Limit</h3>
+        <p>No vehicle may remain parked on a San Diego city street for more than 72 consecutive hours (3 days).</p>
+        <p class="caveat">⚠️ In practice, the 72-hour rule is rarely enforced by parking enforcement. That said, it is still technically on the books — use your own judgment.</p>
+        <p style="margin-top:10px;font-size:0.85rem;color:#888;">Source: <a href="https://www.sandiego.gov/parking/enforcement" target="_blank">San Diego Parking Enforcement</a></p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

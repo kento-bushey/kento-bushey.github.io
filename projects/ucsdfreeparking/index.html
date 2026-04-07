@@ -131,6 +131,7 @@
     <h1>🗺️ UCSD Free Parking Map</h1>
     <p>Find free parking near campus</p>
     <div class="spacer"></div>
+    <a href="/projects/ucsdfreeparking/info" class="discussion-btn">ℹ️ Info</a>
     <a href="/projects/ucsdfreeparking/discussion" class="discussion-btn">💬 Discussion</a>
   </div>
 
@@ -142,6 +143,14 @@
       <div class="legend-color" style="background:#2ecc71;"></div>
       <span class="legend-label">General Overnight</span>
     </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#e74c3c;"></div>
+      <span class="legend-label">No Overnight</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#f1c40f;"></div>
+      <span class="legend-label">2-Hour Parking</span>
+    </div>
     <!-- Add legend items here as you add categories -->
   </div>
 
@@ -150,8 +159,8 @@
   <script>
     const categoryStyles = {
       "General Overnight": { color: "#2ecc71", opacity: 0.6 },
-      // "Time Limit":       { color: "#f1c40f", opacity: 0.6 },
-      // "Weekends Only":    { color: "#3498db", opacity: 0.6 },
+      "No Overnight":      { color: "#e74c3c", opacity: 0.6 },
+      "2-Hour Parking":    { color: "#f1c40f", opacity: 0.6 },
     };
 
     const defaultStyle = { color: "#aaaaaa", opacity: 0.5 };
