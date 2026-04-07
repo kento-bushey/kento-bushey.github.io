@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UCSD Free Parking Map</title>
+  <title>Kento Bushey</title>
   <style>
     * {
       margin: 0;
@@ -12,70 +12,75 @@
     }
 
     body {
+      font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      height: 100vh;
       display: flex;
       flex-direction: column;
-      height: 100vh;
-      font-family: Arial, sans-serif;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
-    /* ── Banner ── */
-    #banner {
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 260px;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+      padding: 14px 0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    .btn-projects {
       background-color: #003f7d;
       color: white;
-      padding: 0 24px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
     }
 
-    #banner h1 {
-      font-size: 1.3rem;
-      font-weight: bold;
-    }
-
-    #banner p {
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-
-    /* ── Map fills the rest ── */
-    #map {
-      flex: 1;
+    .btn-secondary {
+      background-color: #1a1a1a;
+      color: white;
+      border: 1px solid #333;
     }
   </style>
 </head>
 <body>
 
-  <div id="banner">
-    <h1>🗺️ UCSD Free Parking Map</h1>
-    <p>Find free parking near campus</p>
+  <h1>Kento Bushey</h1>
+  <p class="tagline">Student · Developer · Educator</p>
+
+  <div class="buttons">
+    <a href="/projects" class="btn btn-projects">Projects</a>
+    <a href="/referrals" class="btn btn-secondary">Referrals</a>
+    <a href="/about" class="btn btn-secondary">About</a>
+    <a href="/contact" class="btn btn-secondary">Contact</a>
   </div>
-
-  <div id="map"></div>
-
-  <script>
-    function initMap() {
-      const ucsd = { lat: 32.8801, lng: -117.2340 };
-
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: ucsd,
-        zoom: 15,
-
-        // Clean up the UI
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-      });
-    }
-  </script>
-
-  <!-- Replace YOUR_API_KEY with your actual key -->
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4&callback=initMap"
-    async defer>
-  </script>
 
 </body>
 </html>
