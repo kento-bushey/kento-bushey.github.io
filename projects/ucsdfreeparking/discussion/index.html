@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UCSD Free Parking Map</title>
+  <title>Discussion — UCSD Free Parking Map</title>
   <style>
     * {
       margin: 0;
@@ -16,6 +16,8 @@
       flex-direction: column;
       height: 100vh;
       font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      color: white;
     }
 
     /* ── Banner ── */
@@ -35,16 +37,11 @@
       font-weight: bold;
     }
 
-    #banner p {
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-
     #banner .spacer {
       flex: 1;
     }
 
-    #banner .discussion-btn {
+    #banner .map-btn {
       text-decoration: none;
       color: white;
       border: 1px solid rgba(255,255,255,0.5);
@@ -55,47 +52,41 @@
       transition: background-color 0.2s;
     }
 
-    #banner .discussion-btn:hover {
+    #banner .map-btn:hover {
       background-color: rgba(255,255,255,0.15);
     }
 
-    /* ── Map fills the rest ── */
-    #map {
-      flex: 1;
+    /* ── Content ── */
+    #content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 24px;
+      gap: 8px;
+    }
+
+    #content h2 {
+      font-size: 1.8rem;
+    }
+
+    #content p {
+      color: #888;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
 
   <div id="banner">
-    <h1>🗺️ UCSD Free Parking Map</h1>
-    <p>Find free parking near campus</p>
+    <h1>💬 Discussion</h1>
     <div class="spacer"></div>
-    <a href="/projects/ucsdfreeparking/discussion" class="discussion-btn">💬 Discussion</a>
+    <a href="/projects/ucsdfreeparking" class="map-btn">🗺️ Back to Map</a>
   </div>
 
-  <div id="map"></div>
-
-  <script>
-    function initMap() {
-      const ucsd = { lat: 32.8801, lng: -117.2340 };
-
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: ucsd,
-        zoom: 15,
-
-        // Clean up the UI
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
-      });
-    }
-  </script>
-
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4&callback=initMap"
-    async defer>
-  </script>
+  <div id="content">
+    <h2>Community Discussion</h2>
+    <p>Share tips, report changes, and discuss free parking near UCSD.</p>
+  </div>
 
 </body>
 </html>
