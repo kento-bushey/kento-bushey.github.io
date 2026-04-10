@@ -1,3 +1,6 @@
-Google maps API Key: AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4&
+Google maps API Key: AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4
 
 Go to https://geojson.io to make more polygons on the map.
+
+Export just the stuff inside geometry and place it in the gemotry section of 
+a new parking.geojson entry.

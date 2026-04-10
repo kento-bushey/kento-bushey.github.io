@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UCSD Free Parking Map</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       display: flex;
@@ -48,10 +44,7 @@
       background-color: rgba(255,255,255,0.15);
     }
 
-    #map {
-      flex: 1;
-      position: relative;
-    }
+    #map { flex: 1; position: relative; }
 
     /* ── Legend ── */
     #legend {
@@ -66,63 +59,112 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      width: auto;
     }
 
-    #legend h3 {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: #333;
-      margin: 0;
-    }
+    #legend h3 { font-size: 0.8rem; font-weight: bold; color: #333; margin: 0; }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
+    .legend-item { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
 
     .legend-color {
-      width: 14px;
-      height: 14px;
-      border-radius: 3px;
-      flex-shrink: 0;
+      width: 14px; height: 14px;
+      border-radius: 3px; flex-shrink: 0;
       border: 1px solid rgba(0,0,0,0.2);
     }
 
-    .legend-label {
+    .legend-label { font-size: 0.8rem; color: #333; }
+
+    .legend-info { cursor: pointer; opacity: 0.5; flex-shrink: 0; }
+    .legend-info:hover { opacity: 0.9; }
+
+    /* ── Legend tooltip ── */
+    #legend-tooltip {
+      position: fixed;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
       font-size: 0.8rem;
       color: #333;
+      line-height: 1.5;
+      pointer-events: none;
+      z-index: 20;
+      display: none;
+      max-width: 200px;
     }
 
-    /* ── Hover tooltip ── */
-    #tooltip {
+    /* ── Hover tooltip (name + description only, no click needed) ── */
+    #hover-tooltip {
       position: fixed;
       background: white;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 8px 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      font-family: Arial, sans-serif;
       font-size: 0.85rem;
       pointer-events: none;
       z-index: 11;
       display: none;
-      max-width: 240px;
+      max-width: 220px;
     }
 
-    #tooltip strong {
-      font-size: 0.95rem;
+    #hover-tooltip strong { font-size: 0.9rem; display: block; margin-bottom: 2px; }
+    #hover-tooltip .cat  { color: #888; font-size: 0.75rem; margin-bottom: 4px; display: block; }
+    #hover-tooltip .hint { color: #aaa; font-size: 0.72rem; margin-top: 6px; display: block; font-style: italic; }
+
+    /* ── Click panel (pinned, with street view + link) ── */
+    #click-panel {
+      position: fixed;
+      top: 80px;
+      right: 16px;
+      background: white;
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      font-size: 0.85rem;
+      z-index: 15;
+      display: none;
+      width: 260px;
+    }
+
+    #click-panel .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    #click-panel strong { font-size: 1rem; }
+    #click-panel .cat  { color: #888; font-size: 0.75rem; margin-bottom: 8px; display: block; }
+    #click-panel .desc { font-size: 0.85rem; color: #333; margin-bottom: 10px; line-height: 1.5; }
+
+    #click-panel .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      color: #aaa;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    #click-panel .close-btn:hover { color: #333; }
+
+    #click-panel img {
+      width: 100%;
+      border-radius: 6px;
       display: block;
-      margin-bottom: 2px;
-    }
-
-    #tooltip .cat {
-      color: #888;
-      font-size: 0.75rem;
       margin-bottom: 6px;
-      display: block;
     }
+
+    #click-panel a {
+      font-size: 0.78rem;
+      color: #003f7d;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    #click-panel a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -142,25 +184,84 @@
     <div class="legend-item">
       <div class="legend-color" style="background:#2ecc71;"></div>
       <span class="legend-label">General Overnight</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info="Default street parking — no signs needed. Gray curb. Park for up to 72 hours at a time, anytime." width="13" height="13">
     </div>
     <div class="legend-item">
-      <div class="legend-color" style="background:#e74c3c;"></div>
+      <div class="legend-color" style="background:#3cdce7;"></div>
       <span class="legend-label">No Overnight</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info="Restricted overnight parking. Look for red signs saying 'No Parking 2am–6am', or a residential permit zone." width="13" height="13">
     </div>
     <div class="legend-item">
       <div class="legend-color" style="background:#f1c40f;"></div>
       <span class="legend-label">2-Hour Parking</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info="Limited to 2 hours. Marked by green signs stating '2 Hour Parking'. Check sign for hours of enforcement." width="13" height="13">
     </div>
-    <!-- Add legend items here as you add categories -->
+    <div class="legend-item">
+      <div class="legend-color" style="background:#9b59b6;"></div>
+      <span class="legend-label">Restricted Hours</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info='Ex: "No Parking 9am-2pm". Parking is allowed outside of the posted restricted hours.' width="13" height="13">
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#e67e22;"></div>
+      <span class="legend-label">1-Hour Parking</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info="Limited to 1 hour. Check posted signs for hours of enforcement." width="13" height="13">
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#e74c3c;"></div>
+      <span class="legend-label">15/20-Min Loading Zone</span>
+      <img src="/projects/ucsdfreeparking/info.png" class="legend-info" data-info="Usually painted on the ground. Enforced by checking valve stem positions." width="13" height="13">
+    </div>
   </div>
 
-  <div id="tooltip"></div>
+  <!-- Hover tooltip: name + description + hint to click -->
+  <div id="hover-tooltip"></div>
+
+  <!-- Click panel: pinned to top-right, shows street view + link -->
+  <div id="click-panel">
+    <div class="panel-header">
+      <strong id="panel-name"></strong>
+      <button class="close-btn" onclick="document.getElementById('click-panel').style.display='none'">✕</button>
+    </div>
+    <span class="cat" id="panel-cat"></span>
+    <div class="desc" id="panel-desc"></div>
+    <img id="panel-sv" src="" alt="Street View">
+    <a id="panel-link" href="" target="_blank">📍 Open in Google Maps ↗</a>
+  </div>
+
+  <div id="legend-tooltip"></div>
+
 
   <script>
+    // ── Legend tooltips ──────────────────────────────────────────
+    const legendTooltip = document.getElementById("legend-tooltip");
+    document.querySelectorAll(".legend-info").forEach(el => {
+      el.addEventListener("mouseenter", (e) => {
+        legendTooltip.textContent = el.dataset.info;
+        legendTooltip.style.display = "block";
+        let x = e.clientX + 16, y = e.clientY + 16;
+        if (x + 210 > window.innerWidth)  x = e.clientX - 210;
+        if (y + 80  > window.innerHeight) y = e.clientY - 80;
+        legendTooltip.style.left = x + "px";
+        legendTooltip.style.top  = y + "px";
+      });
+      el.addEventListener("mousemove", (e) => {
+        let x = e.clientX + 16, y = e.clientY + 16;
+        if (x + 210 > window.innerWidth)  x = e.clientX - 210;
+        if (y + 80  > window.innerHeight) y = e.clientY - 80;
+        legendTooltip.style.left = x + "px";
+        legendTooltip.style.top  = y + "px";
+      });
+      el.addEventListener("mouseleave", () => { legendTooltip.style.display = "none"; });
+    });
+
+    // ── Map setup ────────────────────────────────────────────────
     const categoryStyles = {
-      "General Overnight": { color: "#2ecc71", opacity: 0.6 },
-      "No Overnight":      { color: "#e74c3c", opacity: 0.6 },
-      "2-Hour Parking":    { color: "#f1c40f", opacity: 0.6 },
+      "General Overnight":      { color: "#2ecc71", opacity: 0.6 },
+      "No Overnight":           { color: "#3cdce7", opacity: 0.6 },
+      "2-Hour Parking":         { color: "#f1c40f", opacity: 0.6 },
+      "Restricted Hours":       { color: "#9b59b6", opacity: 0.6 },
+      "1-Hour Parking":         { color: "#e67e22", opacity: 0.6 },
+      "15/20-min Loading Zone": { color: "#e74c3c", opacity: 0.6 },
     };
 
     const defaultStyle = { color: "#aaaaaa", opacity: 0.5 };
@@ -173,59 +274,70 @@
 
     function initMap() {
       const ucsd = { lat: 32.8801, lng: -117.2340 };
-
       const map = new google.maps.Map(document.getElementById("map"), {
-        center: ucsd,
-        zoom: 15,
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false,
+        center: ucsd, zoom: 15,
+        mapTypeControl: false, streetViewControl: false, fullscreenControl: false,
         styles: bwMapStyle,
       });
 
-      const tooltip = document.getElementById("tooltip");
-      const mapDiv  = document.getElementById("map");
+      const hoverTooltip = document.getElementById("hover-tooltip");
+      const mapDiv = document.getElementById("map");
 
       mapDiv.addEventListener("mousemove", (e) => {
-        let x = e.clientX + 16;
-        let y = e.clientY + 16;
-        if (x + 260 > window.innerWidth)  x = e.clientX - 260;
-        if (y + 120 > window.innerHeight) y = e.clientY - 120;
-        tooltip.style.left = x + "px";
-        tooltip.style.top  = y + "px";
+        let x = e.clientX + 16, y = e.clientY + 16;
+        if (x + 240 > window.innerWidth)  x = e.clientX - 240;
+        if (y + 100 > window.innerHeight) y = e.clientY - 100;
+        hoverTooltip.style.left = x + "px";
+        hoverTooltip.style.top  = y + "px";
       });
 
       fetch("/projects/ucsdfreeparking/parking.geojson")
         .then(res => res.json())
         .then(data => {
           data.features.forEach(feature => {
-            const props = feature.properties;
-            const style = categoryStyles[props.category] || defaultStyle;
+            const props  = feature.properties;
+            const style  = categoryStyles[props.category] || defaultStyle;
             const coords = feature.geometry.coordinates[0].map(([lng, lat]) => ({ lat, lng }));
 
             const polygon = new google.maps.Polygon({
               paths: coords,
-              strokeColor: style.color,
-              strokeOpacity: 0.9,
-              strokeWeight: 2,
-              fillColor: style.color,
-              fillOpacity: style.opacity,
+              strokeColor: style.color, strokeOpacity: 0.9, strokeWeight: 2,
+              fillColor: style.color, fillOpacity: style.opacity,
               map: map,
             });
 
+            // ── Hover: lightweight tooltip ───────────────────────
             polygon.addListener("mouseover", () => {
               polygon.setOptions({ fillOpacity: 0.85 });
-              tooltip.innerHTML = `
+              hoverTooltip.innerHTML = `
                 <strong>${props.name}</strong>
                 <span class="cat">${props.category}</span>
                 ${props.description}
+                <span class="hint">Click for street view & directions</span>
               `;
-              tooltip.style.display = "block";
+              hoverTooltip.style.display = "block";
             });
 
             polygon.addListener("mouseout", () => {
               polygon.setOptions({ fillOpacity: style.opacity });
-              tooltip.style.display = "none";
+              hoverTooltip.style.display = "none";
+            });
+
+            // ── Click: open pinned panel with street view ────────
+            polygon.addListener("click", () => {
+              const bounds = new google.maps.LatLngBounds();
+              coords.forEach(c => bounds.extend(c));
+              const center = bounds.getCenter();
+              const lat = center.lat();
+              const lng = center.lng();
+
+              document.getElementById("panel-name").textContent = props.name;
+              document.getElementById("panel-cat").textContent  = props.category;
+              document.getElementById("panel-desc").innerHTML   = props.description;
+              document.getElementById("panel-sv").src =
+                `https://maps.googleapis.com/maps/api/streetview?size=240x130&location=${lat},${lng}&radius=100&key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4`;
+              document.getElementById("panel-link").href = props.pin || "#";
+              document.getElementById("click-panel").style.display = "block";
             });
           });
         });
