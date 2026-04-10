@@ -26,6 +26,10 @@
       align-items: center;
       gap: 12px;
       flex-shrink: 0;
+      /* Keep banner pinned even when mobile browser chrome hides */
+      position: sticky;
+      top: 0;
+      z-index: 200;
     }
 
     #banner h1 { font-size: 1.3rem; font-weight: bold; }
@@ -59,7 +63,14 @@
     /* ════════════════════════════════════════
        MAP
     ════════════════════════════════════════ */
-    #map { flex: 1; position: relative; }
+    #map {
+      flex: 1;
+      position: relative;
+      /* Fallback + modern dynamic viewport so map fills screen on mobile
+         even after browser chrome collapses */
+      height: calc(100vh - 60px);
+      height: calc(100dvh - 60px);
+    }
 
     /* ════════════════════════════════════════
        DESKTOP LEGEND
