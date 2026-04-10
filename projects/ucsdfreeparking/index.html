@@ -14,6 +14,9 @@
       font-family: Arial, sans-serif;
     }
 
+    /* ════════════════════════════════════════
+       BANNER
+    ════════════════════════════════════════ */
     #banner {
       background-color: #003f7d;
       color: white;
@@ -38,15 +41,29 @@
       font-size: 0.9rem;
       font-weight: bold;
       transition: background-color 0.2s;
+      white-space: nowrap;
     }
 
     #banner .discussion-btn:hover {
       background-color: rgba(255,255,255,0.15);
     }
 
+    /* Mobile banner — hide subtitle, shrink title */
+    @media (max-width: 600px) {
+      #banner { padding: 0 12px; gap: 8px; }
+      #banner h1 { font-size: 1rem; }
+      #banner p  { display: none; }
+      #banner .discussion-btn { padding: 6px 10px; font-size: 0.8rem; }
+    }
+
+    /* ════════════════════════════════════════
+       MAP
+    ════════════════════════════════════════ */
     #map { flex: 1; position: relative; }
 
-    /* ── Legend ── */
+    /* ════════════════════════════════════════
+       DESKTOP LEGEND
+    ════════════════════════════════════════ */
     #legend {
       position: fixed;
       bottom: 32px;
@@ -62,21 +79,24 @@
     }
 
     #legend h3 { font-size: 0.8rem; font-weight: bold; color: #333; margin: 0; }
-
     .legend-item { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-
     .legend-color {
       width: 14px; height: 14px;
       border-radius: 3px; flex-shrink: 0;
       border: 1px solid rgba(0,0,0,0.2);
     }
-
     .legend-label { font-size: 0.8rem; color: #333; }
-
     .legend-info { cursor: pointer; opacity: 0.5; flex-shrink: 0; }
     .legend-info:hover { opacity: 0.9; }
 
-    /* ── Legend tooltip ── */
+    /* Hide desktop legend on mobile */
+    @media (max-width: 600px) {
+      #legend { display: none; }
+    }
+
+    /* ════════════════════════════════════════
+       DESKTOP LEGEND TOOLTIP
+    ════════════════════════════════════════ */
     #legend-tooltip {
       position: fixed;
       background: white;
@@ -93,7 +113,9 @@
       max-width: 200px;
     }
 
-    /* ── Hover tooltip (name + description only, no click needed) ── */
+    /* ════════════════════════════════════════
+       DESKTOP HOVER TOOLTIP
+    ════════════════════════════════════════ */
     #hover-tooltip {
       position: fixed;
       background: white;
@@ -111,7 +133,14 @@
     #hover-tooltip .cat  { color: #888; font-size: 0.75rem; margin-bottom: 4px; display: block; }
     #hover-tooltip .hint { color: #aaa; font-size: 0.72rem; margin-top: 6px; display: block; font-style: italic; }
 
-    /* ── Click panel (pinned, with street view + link) ── */
+    /* Hide hover tooltip on mobile */
+    @media (max-width: 600px) {
+      #hover-tooltip { display: none !important; }
+    }
+
+    /* ════════════════════════════════════════
+       DESKTOP CLICK PANEL
+    ════════════════════════════════════════ */
     #click-panel {
       position: fixed;
       top: 80px;
@@ -138,33 +167,185 @@
     #click-panel .desc { font-size: 0.85rem; color: #333; margin-bottom: 10px; line-height: 1.5; }
 
     #click-panel .close-btn {
-      background: none;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      color: #aaa;
-      line-height: 1;
-      flex-shrink: 0;
+      background: none; border: none;
+      font-size: 1.1rem; cursor: pointer;
+      color: #aaa; line-height: 1; flex-shrink: 0;
     }
-
     #click-panel .close-btn:hover { color: #333; }
 
-    #click-panel img {
-      width: 100%;
-      border-radius: 6px;
-      display: block;
-      margin-bottom: 6px;
-    }
+    #click-panel img { width: 100%; border-radius: 6px; display: block; margin-bottom: 6px; }
 
     #click-panel a {
-      font-size: 0.78rem;
-      color: #003f7d;
-      text-decoration: none;
-      display: block;
-      text-align: center;
+      font-size: 0.78rem; color: #003f7d;
+      text-decoration: none; display: block; text-align: center;
+    }
+    #click-panel a:hover { text-decoration: underline; }
+
+    /* Hide desktop click panel on mobile */
+    @media (max-width: 600px) {
+      #click-panel { display: none !important; }
     }
 
-    #click-panel a:hover { text-decoration: underline; }
+    /* ════════════════════════════════════════
+       MOBILE — LEGEND DRAWER
+    ════════════════════════════════════════ */
+    #mobile-legend-btn {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 12px;
+      background: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    @media (max-width: 600px) {
+      #mobile-legend-btn { display: block; }
+    }
+
+    #mobile-legend-drawer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 240px;
+      background: white;
+      box-shadow: 4px 0 16px rgba(0,0,0,0.2);
+      z-index: 100;
+      flex-direction: column;
+      padding: 20px 16px;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    #mobile-legend-drawer.open { display: flex; }
+
+    #mobile-legend-drawer h3 {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    #mobile-legend-drawer .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    #mobile-legend-drawer .legend-label { font-size: 0.9rem; color: #333; }
+
+    #mobile-legend-drawer .legend-color {
+      width: 16px; height: 16px;
+      border-radius: 3px; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+
+    #mobile-legend-drawer .legend-desc {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 2px;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    .drawer-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    #drawer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 99;
+    }
+
+    #drawer-overlay.open { display: block; }
+
+    /* ════════════════════════════════════════
+       MOBILE — BOTTOM SHEET
+    ════════════════════════════════════════ */
+    #bottom-sheet {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+      z-index: 50;
+      padding: 16px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    #bottom-sheet.open {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      #bottom-sheet { display: block; }
+    }
+
+    .sheet-handle {
+      width: 40px; height: 4px;
+      background: #ddd;
+      border-radius: 2px;
+      margin: 0 auto 14px;
+    }
+
+    .sheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    #sheet-name { font-size: 1.1rem; font-weight: bold; color: #111; }
+    #sheet-cat  { font-size: 0.8rem; color: #888; margin-bottom: 8px; display: block; }
+    #sheet-desc { font-size: 0.88rem; color: #333; line-height: 1.5; margin-bottom: 12px; }
+
+    #sheet-sv {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    #sheet-link {
+      display: block;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #003f7d;
+      text-decoration: none;
+      padding: 10px;
+      border: 1px solid #003f7d;
+      border-radius: 8px;
+    }
+
+    .sheet-close {
+      background: none; border: none;
+      font-size: 1.2rem; color: #aaa;
+      cursor: pointer; flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -179,6 +360,7 @@
 
   <div id="map"></div>
 
+  <!-- ── Desktop legend ── -->
   <div id="legend">
     <h3>Legend</h3>
     <div class="legend-item">
@@ -213,10 +395,10 @@
     </div>
   </div>
 
-  <!-- Hover tooltip: name + description + hint to click -->
+  <!-- ── Desktop hover tooltip ── -->
   <div id="hover-tooltip"></div>
 
-  <!-- Click panel: pinned to top-right, shows street view + link -->
+  <!-- ── Desktop click panel ── -->
   <div id="click-panel">
     <div class="panel-header">
       <strong id="panel-name"></strong>
@@ -230,9 +412,92 @@
 
   <div id="legend-tooltip"></div>
 
+  <!-- ── Mobile legend button ── -->
+  <button id="mobile-legend-btn" onclick="openDrawer()">🗂 Legend</button>
+
+  <!-- ── Mobile drawer overlay ── -->
+  <div id="drawer-overlay" onclick="closeDrawer()"></div>
+
+  <!-- ── Mobile legend drawer ── -->
+  <div id="mobile-legend-drawer">
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <h3>Legend</h3>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#2ecc71;"></div>
+      <div>
+        <div class="legend-label">General Overnight</div>
+        <div class="legend-desc">Default street parking. Gray curb. Up to 72 hours, anytime.</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#3cdce7;"></div>
+      <div>
+        <div class="legend-label">No Overnight</div>
+        <div class="legend-desc">No parking 2am–6am. Red signs or residential permit zone.</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#f1c40f;"></div>
+      <div>
+        <div class="legend-label">2-Hour Parking</div>
+        <div class="legend-desc">Green signs. Limited to 2 hours during posted hours.</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#9b59b6;"></div>
+      <div>
+        <div class="legend-label">Restricted Hours</div>
+        <div class="legend-desc">Ex: No parking 9am–2pm. OK outside posted hours.</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#e67e22;"></div>
+      <div>
+        <div class="legend-label">1-Hour Parking</div>
+        <div class="legend-desc">Limited to 1 hour during posted enforcement hours.</div>
+      </div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#e74c3c;"></div>
+      <div>
+        <div class="legend-label">15/20-Min Loading Zone</div>
+        <div class="legend-desc">Painted on ground. Enforced by valve stem checks. Free to park.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Mobile bottom sheet ── -->
+  <div id="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <span id="sheet-name"></span>
+      <button class="sheet-close" onclick="closeSheet()">✕</button>
+    </div>
+    <span id="sheet-cat"></span>
+    <div id="sheet-desc"></div>
+    <img id="sheet-sv" src="" alt="Street View">
+    <a id="sheet-link" href="" target="_blank">📍 Open in Google Maps ↗</a>
+  </div>
 
   <script>
-    // ── Legend tooltips ──────────────────────────────────────────
+    const isMobile = () => window.innerWidth <= 600;
+
+    // ── Drawer ───────────────────────────────────────────────────
+    function openDrawer() {
+      document.getElementById("mobile-legend-drawer").classList.add("open");
+      document.getElementById("drawer-overlay").classList.add("open");
+    }
+    function closeDrawer() {
+      document.getElementById("mobile-legend-drawer").classList.remove("open");
+      document.getElementById("drawer-overlay").classList.remove("open");
+    }
+
+    // ── Bottom sheet ─────────────────────────────────────────────
+    function closeSheet() {
+      document.getElementById("bottom-sheet").classList.remove("open");
+    }
+
+    // ── Desktop legend tooltips ──────────────────────────────────
     const legendTooltip = document.getElementById("legend-tooltip");
     document.querySelectorAll(".legend-info").forEach(el => {
       el.addEventListener("mouseenter", (e) => {
@@ -254,7 +519,7 @@
       el.addEventListener("mouseleave", () => { legendTooltip.style.display = "none"; });
     });
 
-    // ── Map setup ────────────────────────────────────────────────
+    // ── Map ──────────────────────────────────────────────────────
     const categoryStyles = {
       "General Overnight":      { color: "#2ecc71", opacity: 0.6 },
       "No Overnight":           { color: "#3cdce7", opacity: 0.6 },
@@ -284,6 +549,7 @@
       const mapDiv = document.getElementById("map");
 
       mapDiv.addEventListener("mousemove", (e) => {
+        if (isMobile()) return;
         let x = e.clientX + 16, y = e.clientY + 16;
         if (x + 240 > window.innerWidth)  x = e.clientX - 240;
         if (y + 100 > window.innerHeight) y = e.clientY - 100;
@@ -306,8 +572,9 @@
               map: map,
             });
 
-            // ── Hover: lightweight tooltip ───────────────────────
+            // ── Desktop hover ────────────────────────────────────
             polygon.addListener("mouseover", () => {
+              if (isMobile()) return;
               polygon.setOptions({ fillOpacity: 0.85 });
               hoverTooltip.innerHTML = `
                 <strong>${props.name}</strong>
@@ -319,25 +586,40 @@
             });
 
             polygon.addListener("mouseout", () => {
+              if (isMobile()) return;
               polygon.setOptions({ fillOpacity: style.opacity });
               hoverTooltip.style.display = "none";
             });
 
-            // ── Click: open pinned panel with street view ────────
-            polygon.addListener("click", () => {
+            // ── Shared: get street view coords ───────────────────
+            function getSVCoords() {
               const bounds = new google.maps.LatLngBounds();
               coords.forEach(c => bounds.extend(c));
               const center = bounds.getCenter();
-              const lat = center.lat();
-              const lng = center.lng();
+              return { lat: center.lat(), lng: center.lng() };
+            }
 
-              document.getElementById("panel-name").textContent = props.name;
-              document.getElementById("panel-cat").textContent  = props.category;
-              document.getElementById("panel-desc").innerHTML   = props.description;
-              document.getElementById("panel-sv").src =
-                `https://maps.googleapis.com/maps/api/streetview?size=240x130&location=${lat},${lng}&radius=100&key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4`;
-              document.getElementById("panel-link").href = props.pin || "#";
-              document.getElementById("click-panel").style.display = "block";
+            // ── Desktop click → right panel ──────────────────────
+            polygon.addListener("click", () => {
+              const { lat, lng } = getSVCoords();
+              const svUrl = `https://maps.googleapis.com/maps/api/streetview?size=240x130&location=${lat},${lng}&radius=100&key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4`;
+
+              if (isMobile()) {
+                // ── Mobile tap → bottom sheet ────────────────────
+                document.getElementById("sheet-name").textContent = props.name;
+                document.getElementById("sheet-cat").textContent  = props.category;
+                document.getElementById("sheet-desc").innerHTML   = props.description;
+                document.getElementById("sheet-sv").src  = svUrl;
+                document.getElementById("sheet-link").href = props.pin || "#";
+                document.getElementById("bottom-sheet").classList.add("open");
+              } else {
+                document.getElementById("panel-name").textContent = props.name;
+                document.getElementById("panel-cat").textContent  = props.category;
+                document.getElementById("panel-desc").innerHTML   = props.description;
+                document.getElementById("panel-sv").src  = svUrl;
+                document.getElementById("panel-link").href = props.pin || "#";
+                document.getElementById("click-panel").style.display = "block";
+              }
             });
           });
         });
