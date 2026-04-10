@@ -341,10 +341,26 @@
       border-radius: 8px;
     }
 
+    /* FIX 1: Larger, rounded close button for mobile bottom sheet */
     .sheet-close {
-      background: none; border: none;
-      font-size: 1.2rem; color: #aaa;
-      cursor: pointer; flex-shrink: 0;
+      background: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      color: #555;
+      cursor: pointer;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      margin-left: 8px;
+    }
+
+    .sheet-close:active {
+      background: #ddd;
     }
   </style>
 </head>
@@ -471,6 +487,7 @@
     <div class="sheet-handle"></div>
     <div class="sheet-header">
       <span id="sheet-name"></span>
+      <!-- FIX 1: Larger rounded close button -->
       <button class="sheet-close" onclick="closeSheet()">✕</button>
     </div>
     <span id="sheet-cat"></span>
@@ -543,6 +560,8 @@
         center: ucsd, zoom: 15,
         mapTypeControl: false, streetViewControl: false, fullscreenControl: false,
         styles: bwMapStyle,
+        // FIX 3: Allow one-finger pan on mobile
+        gestureHandling: "greedy",
       });
 
       const hoverTooltip = document.getElementById("hover-tooltip");
@@ -572,7 +591,7 @@
               map: map,
             });
 
-            // ── Desktop hover ────────────────────────────────────
+            // ── Desktop hover (skip on mobile) ───────────────────
             polygon.addListener("mouseover", () => {
               if (isMobile()) return;
               polygon.setOptions({ fillOpacity: 0.85 });
@@ -599,12 +618,15 @@
               return { lat: center.lat(), lng: center.lng() };
             }
 
-            // ── Desktop click → right panel ──────────────────────
+            // ── Click / tap handler ──────────────────────────────
             polygon.addListener("click", () => {
               const { lat, lng } = getSVCoords();
               const svUrl = `https://maps.googleapis.com/maps/api/streetview?size=240x130&location=${lat},${lng}&radius=100&key=AIzaSyDXw9ehHkH9DA3jcwlIoysqHd0Q3uLAXn4`;
 
               if (isMobile()) {
+                // FIX 2: Hide hover tooltip before opening sheet
+                hoverTooltip.style.display = "none";
+
                 // ── Mobile tap → bottom sheet ────────────────────
                 document.getElementById("sheet-name").textContent = props.name;
                 document.getElementById("sheet-cat").textContent  = props.category;
