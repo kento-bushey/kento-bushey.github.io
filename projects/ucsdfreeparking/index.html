@@ -224,9 +224,9 @@
     #mobile-legend-drawer {
       display: none;
       position: fixed;
-      top: 0;
+      top: 60px;
       left: 0;
-      height: 100%;
+      height: calc(100% - 60px);
       width: 240px;
       background: white;
       box-shadow: 4px 0 16px rgba(0,0,0,0.2);
@@ -283,7 +283,10 @@
     #drawer-overlay {
       display: none;
       position: fixed;
-      inset: 0;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0,0,0,0.3);
       z-index: 99;
     }
