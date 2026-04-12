@@ -1711,8 +1711,8 @@
       "type": "Feature",
       "properties": {
         "name": "La Jolla Shores Dr",
-        "category": "No Overnight",
-        "description": "&#8226; Very Competitive.",
+        "category": "General Overnight",
+        "description": "&#8226; Very Competitive.<br>&#8226; Note: There is one sign on the intersection of La Jolla Shores Dr and La Jolla Farms Rd. Sign reads 'No Parking All City Streets 2am-6am' I've seen cars parked here during those hours without issue. Use your own judgement.",
         "pin": "https://maps.app.goo.gl/5Q17ifETR8Z8JXSLA"
       },
       "geometry":  {
@@ -1759,7 +1759,7 @@
       "type": "Feature",
       "properties": {
         "name": "Inyaha Ln",
-        "category": "No Overnight",
+        "category": "General Overnight",
         "description": "",
         "pin": "https://maps.app.goo.gl/EZ6RSgD67fzRy9Md9"
       },
@@ -1796,7 +1796,7 @@
       "properties": {
         "name": "La Jolla Shores Dr",
         "category": "2-Hour Parking",
-        "description": "&#8226; 2 Hour Parking 8am-6pm",
+        "description": "&#8226; 2 Hour Parking 8am-6pm<br>&#8226; General overnight parking outside of those hours.<br>&#8226; Note: There is one sign on the intersection of La Jolla Shores Dr and La Jolla Farms Rd. Sign reads 'No Parking All City Streets 2am-6am' I've seen cars parked here during those hours without issue. Use your own judgement.",
         "pin": "https://maps.app.goo.gl/5Q17ifETR8Z8JXSLA"
       },
       "geometry":  {
@@ -1856,8 +1856,8 @@
       "type": "Feature",
       "properties": {
         "name": "La Jolla Shores Dr",
-        "category": "No Overnight",
-        "description": "",
+        "category": "General Overnight",
+        "description": "&#8226; Note: There is one sign on the intersection of La Jolla Shores Dr and La Jolla Farms Rd. Sign reads 'No Parking All City Streets 2am-6am' I've seen cars parked here during those hours without issue. Use your own judgement.",
         "pin": "https://maps.app.goo.gl/ZVQZwvvSQfd43GbL6"
       },
       "geometry":  {
@@ -1892,8 +1892,8 @@
       "type": "Feature",
       "properties": {
         "name": "La Jolla Shores Dr",
-        "category": "No Overnight",
-        "description": "",
+        "category": "General Overnight",
+        "description": "&#8226; Note: There is one sign on the intersection of La Jolla Shores Dr and La Jolla Farms Rd. Sign reads 'No Parking All City Streets 2am-6am' I've seen cars parked here during those hours without issue. Use your own judgement.",
         "pin": "https://maps.app.goo.gl/8xMnQXoRnqeLtmQn8"
       },
       "geometry":  {
@@ -2091,8 +2091,120 @@
     {
       "type": "Feature",
       "properties": {
+        "name": "La Jolla Shores Dr",
+        "category": "General Overnight",
+        "description": "&#8226; Note: There is one sign on the intersection of La Jolla Shores Dr and La Jolla Farms Rd. Sign reads 'No Parking All City Streets 2am-6am' I've seen cars parked here during those hours without issue. Use your own judgement.",
+        "pin": "https://maps.app.goo.gl/dk2adYB8aa16acMa8"
+      },
+      "geometry":  {
+        "coordinates": [
+          [
+            [
+              -117.25221351080772,
+              32.8670697020587
+            ],
+            [
+              -117.2522936918685,
+              32.86670634597783
+            ],
+            [
+              -117.25230595278649,
+              32.86648321416578
+            ],
+            [
+              -117.25230595278649,
+              32.86616396305736
+            ],
+            [
+              -117.25228143095076,
+              32.865889337528955
+            ],
+            [
+              -117.25225282214238,
+              32.8655220245555
+            ],
+            [
+              -117.2522601827979,
+              32.865121425927725
+            ],
+            [
+              -117.25242774867559,
+              32.86512485878205
+            ],
+            [
+              -117.25244818353893,
+              32.86486052862897
+            ],
+            [
+              -117.25258305363556,
+              32.864527540171395
+            ],
+            [
+              -117.25279966318472,
+              32.864197983354586
+            ],
+            [
+              -117.25307757732332,
+              32.86384782789422
+            ],
+            [
+              -117.25294270722668,
+              32.86374484073143
+            ],
+            [
+              -117.25266888006075,
+              32.86408126502167
+            ],
+            [
+              -117.25246453142933,
+              32.86435246326501
+            ],
+            [
+              -117.25231740041468,
+              32.864276939786535
+            ],
+            [
+              -117.25215800757235,
+              32.86460306292186
+            ],
+            [
+              -117.25203948536611,
+              32.86507679829822
+            ],
+            [
+              -117.25202551006697,
+              32.86552150533731
+            ],
+            [
+              -117.25208681465641,
+              32.86599180298687
+            ],
+            [
+              -117.25214811924587,
+              32.86641747170211
+            ],
+            [
+              -117.2521154234648,
+              32.86671612514516
+            ],
+            [
+              -117.25200098823123,
+              32.867025075924275
+            ],
+            [
+              -117.25221351080772,
+              32.8670697020587
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
         "name": "Horizon Way",
-        "category": "No Overnight",
+        "category": "General Overnight",
         "description": "",
         "pin": "https://maps.app.goo.gl/59WmwvzDvMYdKF2G7"
       },
@@ -2324,7 +2436,7 @@
       "type": "Feature",
       "properties": {
         "name": "Poole St",
-        "category": "No Overnight",
+        "category": "General Overnight",
         "description": "",
         "pin": "https://maps.app.goo.gl/oufAPUFECQbzYmk69"
       },
