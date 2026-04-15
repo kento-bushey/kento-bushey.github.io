@@ -207,6 +207,8 @@
       });
       if (res.ok) {
         form.style.display = 'none';
+        document.querySelector('h1').style.display = 'none';
+        document.querySelector('.subtitle').style.display = 'none';
         success.style.display = 'block';
       }
     });
