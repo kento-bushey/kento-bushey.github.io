@@ -50,14 +50,14 @@
       max-width: 420px;
     }
 
-    h1 {
+    #form-wrapper h1 {
       font-size: 2rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
 
-    .subtitle {
+    #form-wrapper .subtitle {
       font-size: 0.875rem;
       color: #555;
       font-family: 'DM Mono', monospace;
@@ -125,9 +125,8 @@
       opacity: 0.8;
     }
 
-    .success-msg {
+    #success-msg {
       display: none;
-      margin-top: 20px;
       text-align: center;
       font-family: 'DM Mono', monospace;
       font-size: 0.85rem;
@@ -140,76 +139,49 @@
   <a href="/index.html" class="back-link">home</a>
 
   <div class="container">
-    <h1>Contact</h1>
-    <p class="subtitle">Send me a message — I'll get back to you.</p>
 
-    <!--
-      SETUP INSTRUCTIONS:
-      1. Go to https://formspree.io and sign up for free
-      2. Create a new form — you'll get a form ID like "xabcdefg"
-      3. Replace "YOUR_FORM_ID" in the action URL below with your actual ID
-      4. Formspree will forward submissions to your email privately
-    -->
-    <form
-      action="https://formspree.io/f/mbdqlbyj"
-      method="POST"
-      id="contact-form"
-    >
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Your name"
-          required
-        />
-      </div>
+    <div id="form-wrapper">
+      <h1>Contact</h1>
+      <p class="subtitle">Send me a message — I'll get back to you.</p>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="your@email.com"
-          required
-        />
-      </div>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
 
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea
-          id="message"
-          name="message"
-          placeholder="What's on your mind?"
-          required
-        ></textarea>
-      </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
 
-      <button type="submit" class="btn-submit">Send Message</button>
-    </form>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+        </div>
 
-    <p class="success-msg" id="success-msg">Message sent — I'll be in touch!</p>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+    </div>
+
+    <p id="success-msg">Message sent — I'll be in touch!</p>
+
   </div>
 
   <script>
-    const form = document.getElementById('contact-form');
-    const success = document.getElementById('success-msg');
-
-    form.addEventListener('submit', async (e) => {
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const data = new FormData(form);
-      const res = await fetch(form.action, {
+
+      const data = new FormData(this);
+      const res = await fetch('https://formspree.io/f/mbdqlbyj', {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
       });
+
       if (res.ok) {
-        form.style.display = 'none';
-        document.querySelector('h1').style.display = 'none';
-        document.querySelector('.subtitle').style.display = 'none';
-        success.style.display = 'block';
+        document.getElementById('form-wrapper').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
       }
     });
   </script>
