@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Kento Bushey</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0a0a0a;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: #555;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: #aaa;
+    }
+
+    .back-link::before {
+      content: '← ';
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #555;
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 36px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-family: 'DM Mono', monospace;
+      color: #666;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    input, textarea {
+      background-color: #111;
+      border: 1px solid #222;
+      border-radius: 6px;
+      color: white;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #003f7d;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #333;
+    }
+
+    textarea {
+      height: 130px;
+    }
+
+    .btn-submit {
+      margin-top: 8px;
+      width: 100%;
+      padding: 14px 0;
+      background-color: #003f7d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.8;
+    }
+
+    .success-msg {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: #4caf91;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/index.html" class="back-link">home</a>
+
+  <div class="container">
+    <h1>Contact</h1>
+    <p class="subtitle">Send me a message — I'll get back to you.</p>
+
+    <!--
+      SETUP INSTRUCTIONS:
+      1. Go to https://formspree.io and sign up for free
+      2. Create a new form — you'll get a form ID like "xabcdefg"
+      3. Replace "YOUR_FORM_ID" in the action URL below with your actual ID
+      4. Formspree will forward submissions to your email privately
+    -->
+    <form
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      id="contact-form"
+    >
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="What's on your mind?"
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+
+    <p class="success-msg" id="success-msg">Message sent — I'll be in touch!</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('success-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
