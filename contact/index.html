@@ -26,23 +26,16 @@
     }
 
     .back-link {
-      position: fixed;
+      position: absolute;
       top: 24px;
       left: 24px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: #555;
+      color: #888;
       text-decoration: none;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
+      font-size: 0.9rem;
     }
 
     .back-link:hover {
-      color: #aaa;
-    }
-
-    .back-link::before {
-      content: '← ';
+      color: white;
     }
 
     .container {
@@ -136,7 +129,7 @@
 </head>
 <body>
 
-  <a href="/index.html" class="back-link">home</a>
+  <a href="/" class="back-link">← Home</a>
 
   <div class="container">
 
