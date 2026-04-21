@@ -1,0 +1,2 @@
+With VS Code Live Server extension 
+right click you index.html file -> "Open with live server"
